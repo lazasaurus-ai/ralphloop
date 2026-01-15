@@ -97,15 +97,28 @@ mark_step_complete <- function(plan_path, step_text) {
   
   lines <- readLines(plan_path, warn = FALSE)
   
-  # Escape special regex characters in step_text
-  escaped_text <- gsub("([.^$*+?{}\\[\\]\\\\|()])", "\\\\\\1", step_text)
-  pattern <- sprintf("^- \\[ \\] %s$", escaped_text)
-  
+  # Try to find and update the step
+  # Look for lines that match: - [ ] <step_text>
+  # Use trimws to handle any trailing whitespace
+  found <- FALSE
   for (i in seq_along(lines)) {
-    if (grepl(pattern, lines[i])) {
-      lines[i] <- sprintf("- [x] %s", step_text)
-      break
+    # Extract the checkbox and text
+    if (grepl("^- \\[ \\] ", lines[i])) {
+      # Get the text after "- [ ] "
+      line_text <- sub("^- \\[ \\] ", "", lines[i])
+      line_text <- trimws(line_text)
+      
+      # Compare with the provided step_text
+      if (line_text == trimws(step_text)) {
+        lines[i] <- sprintf("- [x] %s", trimws(step_text))
+        found <- TRUE
+        break
+      }
     }
+  }
+  
+  if (!found) {
+    warning(sprintf("Step not found in plan: '%s'", step_text))
   }
   
   writeLines(lines, plan_path)
