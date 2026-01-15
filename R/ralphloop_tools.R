@@ -19,7 +19,7 @@ create_ralphloop_tools <- function(work_dir) {
       fun = function(step_text) {
         mark_step_complete(plan_path, step_text)
         steps <- parse_plan(plan_path)
-        completed <- sum(sapply(steps, function(s) s$complete))
+        completed <- sum(vapply(steps, function(s) isTRUE(s$complete), logical(1)))
         total <- length(steps)
         sprintf("\u2713 Marked complete: %s\nProgress: %d/%d steps", step_text, completed, total)
       },
