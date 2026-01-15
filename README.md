@@ -1,2 +1,2 @@
-# ralphwiggumR
-R port of the Claude Code Ralph Wiggum Plugin
+# ralphloop
+R port Inspired by the Ralph Wiggum loop from Anthropic’s Claude Code.
