@@ -1,9 +1,23 @@
-ralphloop_state_path <- function() {
-  ".ralphloop/ralphloop.local.md"
+write_ralphloop_state <- function(state, path = ".ralphloop/ralphloop.local.md") {
+  meta_yaml <- yaml::as.yaml(state$meta)
+  
+  content <- c(
+    "---",
+    trimws(meta_yaml),
+    "---",
+    "",
+    state$prompt
+  )
+  
+  writeLines(content, path)
 }
 
-read_ralphloop_state <- function() {
-  lines <- readLines(ralphloop_state_path(), warn = FALSE)
+read_ralphloop_state <- function(path = ".ralphloop/ralphloop.local.md") {
+  if (!file.exists(path)) {
+    stop("No ralphloop state file found.")
+  }
+  
+  lines <- readLines(path, warn = FALSE)
   idx <- which(lines == "---")
   
   meta <- yaml::yaml.load(
@@ -13,21 +27,4 @@ read_ralphloop_state <- function() {
   prompt <- paste(lines[(idx[2] + 1):length(lines)], collapse = "\n")
   
   list(meta = meta, prompt = prompt)
-}
-
-write_ralphloop_state <- function(state) {
-  dir.create(".ralphloop", showWarnings = FALSE)
-  
-  yaml_block <- yaml::as.yaml(state$meta)
-  
-  writeLines(
-    c(
-      "---",
-      yaml_block,
-      "---",
-      "",
-      state$prompt
-    ),
-    ralphloop_state_path()
-  )
 }
