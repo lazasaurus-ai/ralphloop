@@ -206,12 +206,10 @@ The loop continues until the completion promise is truthfully satisfied.
      
      <promise>ALL TESTS PASS</promise>
      🛑 Completion promise detected — stopping loop
-     > system("ls -la work")
-     total 12
-     drwxrwx---. 2 aalvarez domain users   43 Jan 15 09:18 .
-     drwxrwx---. 9 aalvarez domain users 4096 Jan 15 09:08 ..
-     -rw-rw----. 1 aalvarez domain users 2154 Jan 15 09:18 iteration-1.md
-     -rw-rw----. 1 aalvarez domain users 1601 Jan 15 09:18 plan.md
+
+     > system("ls work")
+     iteration-1.md
+     plan.md
 ````
 
 ## Roadmap (planned)
