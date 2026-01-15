@@ -5,6 +5,10 @@ development workflows using the `ellmer` R package.
 
 Inspired by the Ralph loop pattern from Anthropic’s Claude Code.
 
+<p align="center">
+  <img src="img/ralph-wiggum.png" alt="Ralph Wiggum loop illustration" width="600"/>
+</p>
+
 ## Example
 
 ```r
