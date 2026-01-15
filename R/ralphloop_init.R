@@ -1,0 +1,31 @@
+init_ralphloop <- function(
+    prompt,
+    max_iterations = 0,
+    completion_promise = NULL,
+    output_dir = NULL
+) {
+  # Resolve output_dir
+  base_output_dir <- output_dir %||% getwd()
+  work_dir <- file.path(base_output_dir, "work")
+  
+  
+  dir.create(".ralphloop", showWarnings = FALSE, recursive = TRUE)
+  dir.create(work_dir, showWarnings = FALSE, recursive = TRUE)
+  
+  state <- list(
+    meta = list(
+      active = TRUE,
+      iteration = 1,
+      max_iterations = max_iterations,
+      completion_promise = completion_promise %||% "null",
+      started_at = format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ", tz = "UTC"),
+      output_dir = normalizePath(base_output_dir, winslash = "/", mustWork = FALSE),
+      work_dir = normalizePath(work_dir, winslash = "/", mustWork = FALSE)
+    ),
+    prompt = prompt
+  )
+  
+  write_ralphloop_state(state)
+  
+  invisible(state)
+}

@@ -1,0 +1,18 @@
+Package: ralphloop
+Type: Package
+Title: Persistent Iterative Loop for LLM-Driven Development
+Version: 0.1.0
+Authors@R:
+    person("Lazarus", "Alvarez", role = c("aut", "cre"))
+Description:
+    Provides a persistent, truth-based iterative development loop for
+    large language models using the ellmer package. Inspired by the
+    Ralph loop pattern popularized by Anthropic's Claude Code.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports:
+    ellmer,
+    yaml,
+    glue
+RoxygenNote: 7.3.2
