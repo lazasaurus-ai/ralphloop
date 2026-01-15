@@ -1,6 +1,24 @@
+# Core functions
 export(ralph_loop)
 export(init_ralphloop)
+export(ralphloop_status)
+export(cancel_ralphloop)
 
+# Plan functions
+export(parse_plan)
+export(get_next_step)
+export(mark_step_complete)
+export(all_steps_complete)
+export(get_plan_summary)
+
+# Tool functions
+export(create_ralphloop_tools)
+export(register_ralphloop_tools)
+
+# Final output
+export(promote_final)
+
+# Imports
 import(ellmer)
 import(yaml)
 import(glue)
