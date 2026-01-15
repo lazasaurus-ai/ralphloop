@@ -434,6 +434,11 @@ The loop continues until the completion promise is truthfully satisfied.
   4. Add more sophisticated error handling and input validation.
   5. Create a vignette demonstrating the usage of the package.
   🛑 Max iterations reached
+
+  > system("ls work")
+  iteration-1.md
+  iteration-2.md
+  iteration-3.md
 ````
 
 
