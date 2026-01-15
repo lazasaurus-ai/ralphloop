@@ -19,7 +19,15 @@ promote_final <- function(work_dir, iteration, reason = "promise") {
     return(invisible(NULL))
   }
   
-  last_file <- file.path(work_dir, sprintf("iteration-%s.md", iteration))
+  # Look for iteration file in iterations/ subdirectory
+  iterations_dir <- file.path(work_dir, "iterations")
+  last_file <- file.path(iterations_dir, sprintf("iteration-%s.md", iteration))
+  
+  # Fallback to old location for backward compatibility
+
+  if (!file.exists(last_file)) {
+    last_file <- file.path(work_dir, sprintf("iteration-%s.md", iteration))
+  }
   
   if (!file.exists(last_file)) {
     message(sprintf("\u26a0\ufe0f  Iteration file not found: %s", last_file))

@@ -12,10 +12,27 @@ It is inspired by the *Ralph loop* pattern popularized by Anthropic’s Claude C
 Rather than treating LLM output as ephemeral chat, `ralphloop` persists each iteration to disk, making progress auditable, inspectable, and resumable.
 
 
+## Directory structure
+
+When you run `ralphloop`, it creates a structured work directory:
+
+```
+work/
+├── plan.md              # Generated plan with checkboxes (if plan = TRUE)
+├── final.md             # Promoted final output (on completion)
+├── ralphloop-state.md   # Internal state file
+└── iterations/          # Iteration logs (separated from generated content)
+    ├── iteration-1.md
+    ├── iteration-2.md
+    └── ...
+```
+
+This keeps generated content (`plan.md`, `final.md`) cleanly separated from iteration log files.
+
 ## Key ideas
 
 - Persistence over chat
-Each iteration is written to a file (work/iteration-N.md) instead of disappearing into console history.
+Each iteration is written to a file (`work/iterations/iteration-N.md`) instead of disappearing into console history.
 
 - Explicit iteration control
 Loops advance by iteration count and/or explicit completion signals — never by hidden heuristics.
@@ -208,21 +225,29 @@ The loop continues until the completion promise is truthfully satisfied.
      🛑 Completion promise detected — stopping loop
 
      > system("ls work")
-     iteration-1.md
+     final.md
+     iterations
      plan.md
+     ralphloop-state.md
+     
+     > system("ls work/iterations")
+     iteration-1.md
 ````
 
-## Roadmap (planned)
+## Roadmap
+
+### ✅ Implemented
+
+- **Promote final iterations** (`final.md`) - Automatically promotes last iteration on completion
+- **Tool-augmented loops** - LLM can update `plan.md` via registered tools
+- **Plan-aware step enforcement** - Structured iteration through checklist steps
+- **Cancel loop** - `cancel_ralphloop()` to stop gracefully
+
+### 🚧 Planned
 
 - Resume loops from prior state
-
-- Promote final iterations (final.md)
-
 - Clean / archive helpers
-
 - Vignettes for real workflows
-
-- Tool-augmented loops
 
 ## Disclaimer
 

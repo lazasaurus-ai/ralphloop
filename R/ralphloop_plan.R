@@ -124,7 +124,8 @@ all_steps_complete <- function(plan_path) {
     return(FALSE)
   }
   
-  all(sapply(steps, function(s) s$complete))
+  # Use vapply for type safety
+  all(vapply(steps, function(s) isTRUE(s$complete), logical(1)))
 }
 
 #' Get a summary of plan progress
@@ -134,7 +135,13 @@ all_steps_complete <- function(plan_path) {
 #' @export
 get_plan_summary <- function(plan_path) {
   steps <- parse_plan(plan_path)
-  completed <- sum(sapply(steps, function(s) s$complete))
+  
+  if (length(steps) == 0) {
+    return("Plan progress: 0/0 steps complete")
+  }
+  
+  # Use vapply for type safety
+  completed <- sum(vapply(steps, function(s) isTRUE(s$complete), logical(1)))
   total <- length(steps)
   
   sprintf("Plan progress: %d/%d steps complete", completed, total)

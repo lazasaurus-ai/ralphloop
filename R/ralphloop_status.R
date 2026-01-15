@@ -43,11 +43,15 @@ ralphloop_status <- function(path = NULL) {
     cat("\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n")
     steps <- parse_plan(plan_path)
     for (step in steps) {
-      status <- if (step$complete) "\u2713" else "\u25cb"
+      status <- if (isTRUE(step$complete)) "\u2713" else "\u25cb"
       cat(sprintf("  %s %s\n", status, step$text))
     }
-    completed <- sum(sapply(steps, function(s) s$complete))
-    cat(sprintf("\n  Progress: %d/%d steps\n", completed, length(steps)))
+    if (length(steps) > 0) {
+      completed <- sum(vapply(steps, function(s) isTRUE(s$complete), logical(1)))
+      cat(sprintf("\n  Progress: %d/%d steps\n", completed, length(steps)))
+    } else {
+      cat("\n  Progress: 0/0 steps\n")
+    }
     cat("\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n")
   }
   
