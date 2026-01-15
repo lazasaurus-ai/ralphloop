@@ -1,13 +1,13 @@
-# ralphloop
+# ralphloop <img src="img/ralph-wiggum.png"
+     alt="Ralph loop illustration"
+     align="right"
+     width="180"/>
 
 `ralphloop` provides a persistent, truth-based iterative loop for LLM-driven
 development workflows using the `ellmer` R package.
 
 Inspired by the Ralph loop pattern from Anthropic’s Claude Code.
 
-<p align="center">
-  <img src="img/ralph-wiggum.png" alt="Ralph Wiggum loop illustration" width="600"/>
-</p>
 
 ## Example
 
