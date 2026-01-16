@@ -8,6 +8,7 @@
  package.
 
 It is inspired by the *Ralph loop* pattern popularized by Anthropic’s Claude Code, but implemented in a transparent, explicit, and R-native way.
+
 `ralphloop` uses [ellmer](https://ellmer.tidyverse.org/) as the engine which keeps it LLM provider agnostic and register tools in R!
 
 Rather than treating LLM output as ephemeral chat, `ralphloop` persists each iteration to disk, making progress auditable, inspectable, and resumable.
