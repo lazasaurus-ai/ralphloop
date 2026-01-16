@@ -43,6 +43,11 @@ A planning or checklist step (plan.md) can be generated before iteration begins,
 - Optional semantic stopping
 Loops can stop early when the model explicitly declares completion using a completion promise.
 
+<img src="img/mermaid.png"
+     alt="Simple Mermaid FlowChar"
+     align="center"
+     />
+
 ## Using custom plans
 
 You can provide your own `plan.md` file instead of having the LLM generate one:
