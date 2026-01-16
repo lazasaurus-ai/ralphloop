@@ -97,7 +97,7 @@ This keeps loop behavior honest, inspectable, and deterministic.
 library(ellmer)
 library(ralphloop)
 
-# Create a Bedrock-backed ellmer chat client
+# Create an ellmer chat client with your favorite LLM Provider
 # You can also register tools in your ellmer client
 chat_client <- ellmer::chat_aws_bedrock(
   model = "anthropic.claude-3-5-sonnet-20240620-v1:0"
