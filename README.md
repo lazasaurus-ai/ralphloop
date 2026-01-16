@@ -38,10 +38,28 @@ Each iteration is written to a file (`work/iterations/iteration-N.md`) instead o
 Loops advance by iteration count and/or explicit completion signals — never by hidden heuristics.
 
 - Optional planning
-A planning or checklist step (plan.md) can be generated before iteration begins.
+A planning or checklist step (plan.md) can be generated before iteration begins, or you can provide your own custom plan.
 
 - Optional semantic stopping
 Loops can stop early when the model explicitly declares completion using a completion promise.
+
+## Using custom plans
+
+You can provide your own `plan.md` file instead of having the LLM generate one:
+
+1. Create `work/plan.md` before calling `init_ralphloop()`
+2. Use markdown checkbox format:
+   ```markdown
+   # Plan
+   
+   - [ ] Step 1: Your first task
+   - [ ] Step 2: Your second task
+   - [ ] Step 3: Your third task
+   ```
+3. Set `plan = TRUE` and `step_enforcement = TRUE`
+4. The package will use your custom plan for structured iteration
+
+The LLM will work through your steps one at a time and mark them complete using the `mark_step_complete` tool.
 
 ## Completion promises (important)
 
