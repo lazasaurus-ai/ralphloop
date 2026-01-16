@@ -45,7 +45,6 @@ Loops can stop early when the model explicitly declares completion using a compl
 
 <img src="img/mermaid.png"
      alt="Simple Mermaid FlowChar"
-     align="center"
      />
 
 ## Using custom plans
