@@ -90,6 +90,17 @@ This keeps loop behavior honest, inspectable, and deterministic.
 
 > If the promise never appears, the loop will not stop early — even if enforce_promise = TRUE.
 
+## Automatic Retry with Exponential Backoff
+
+`ralphloop` automatically handles transient API errors (including rate limiting) with exponential backoff:
+
+- **3 retry attempts** with increasing wait times: 30, 60, and 120 seconds
+- Works across all LLM providers (OpenAI, Anthropic, AWS Bedrock, etc.)
+- Detects common rate limit patterns: "429", "Too Many Requests", "rate limit", "throttle"
+- Displays the actual error message and retry progress
+- If all retries are exhausted, provides a helpful message to run `ralph_loop(chat_client)` again
+
+The loop state is always preserved, so you can safely resume by calling `ralph_loop(chat_client)` again if errors occur.
 
 ## Example
 
