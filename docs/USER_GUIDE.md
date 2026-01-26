@@ -18,7 +18,7 @@ Complete guide to using the `ralphloop` package for LLM-driven iterative develop
 
 ```r
 # Install from GitHub (when available)
-# devtools::install_github("your-username/ralphloop")
+# devtools::install_github("lazasaurus-ai/ralphloop")
 
 # For now, load from source
 devtools::load_all()
