@@ -6,10 +6,11 @@ Complete guide to using the `ralphloop` package for LLM-driven iterative develop
 
 1. [Installation](#installation)
 2. [Quick Start](#quick-start)
-3. [Core Functions](#core-functions)
-4. [Common Workflows](#common-workflows)
-5. [Advanced Usage](#advanced-usage)
-6. [Troubleshooting](#troubleshooting)
+3. [Directory Structure](#directory-structure)
+4. [Core Functions](#core-functions)
+5. [Common Workflows](#common-workflows)
+6. [Advanced Usage](#advanced-usage)
+7. [Troubleshooting](#troubleshooting)
 
 ---
 
@@ -61,6 +62,102 @@ ralph_loop(chat_client)
 ```
 
 That's it! The LLM will work on your task iteratively, with all progress saved to the `work/` directory.
+
+---
+
+## Directory Structure
+
+### Default Structure
+
+By default, ralphloop creates the following directory structure in your current working directory:
+
+```
+your-project/
+├── .ralphloop/
+│   └── ralphloop.local.md    # Internal state file (tracks progress)
+└── work/
+    ├── plan.md               # Generated plan (if plan = TRUE)
+    ├── final.md              # Final output (promoted on completion)
+    ├── iterations/           # All iteration logs
+    │   ├── iteration-1.md
+    │   ├── iteration-2.md
+    │   └── ...
+    └── [generated files]     # Any files created by LLM via write_file tool
+```
+
+### Custom Directory Structure
+
+You can specify a custom base directory using the `output_dir` parameter:
+
+```r
+# Example 1: Use a specific project directory
+init_ralphloop(
+  prompt = "Build a web scraper",
+  output_dir = "~/projects/web-scraper"
+)
+
+# This creates:
+# ~/projects/web-scraper/
+# ├── .ralphloop/
+# │   └── ralphloop.local.md
+# └── work/
+#     ├── plan.md
+#     └── iterations/
+```
+
+```r
+# Example 2: Use an absolute Windows path
+init_ralphloop(
+  prompt = "Create data analysis scripts",
+  output_dir = "C:/Users/username/Documents/data-project"
+)
+
+# This creates:
+# C:/Users/username/Documents/data-project/
+# ├── .ralphloop/
+# └── work/
+```
+
+```r
+# Example 3: Use a relative path
+init_ralphloop(
+  prompt = "Generate reports",
+  output_dir = "./reports-project"
+)
+
+# This creates:
+# ./reports-project/
+# ├── .ralphloop/
+# └── work/
+```
+
+### Important Notes
+
+- **Base directory**: The `output_dir` parameter sets the base directory
+- **Work directory**: The actual work directory is always `{output_dir}/work/`
+- **State file**: The state file is always at `{output_dir}/.ralphloop/ralphloop.local.md`
+- **Default behavior**: If `output_dir` is not specified, it defaults to `getwd()` (current working directory)
+
+### Accessing Files
+
+```r
+# After initialization, you can access files like this:
+
+# Read the plan
+plan <- readLines("work/plan.md")
+
+# Or with custom output_dir:
+plan <- readLines("~/projects/my-project/work/plan.md")
+
+# List all iterations
+list.files("work/iterations")
+
+# Read a specific iteration
+iteration_3 <- readLines("work/iterations/iteration-3.md")
+
+# Check generated files
+list.files("work")
+```
 
 ---
 
@@ -121,11 +218,26 @@ init_ralphloop(
 
 **Custom output directory:**
 ```r
+# Work directory will be created at ~/projects/my-api/work/
 init_ralphloop(
   prompt = "Generate API documentation",
   output_dir = "~/projects/my-api"
 )
+
+# Or use an absolute path
+init_ralphloop(
+  prompt = "Build a data pipeline",
+  output_dir = "C:/Users/username/Documents/my-project"
+)
+
+# Or relative to current directory
+init_ralphloop(
+  prompt = "Create analysis scripts",
+  output_dir = "./analysis-project"
+)
 ```
+
+**Note:** The `output_dir` parameter sets the base directory. The actual work directory will be `output_dir/work/`. If not specified, it defaults to the current working directory.
 
 ---
 
