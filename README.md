@@ -94,7 +94,8 @@ This keeps loop behavior honest, inspectable, and deterministic.
 
 `ralphloop` automatically handles transient API errors (including rate limiting) with exponential backoff:
 
-- **3 retry attempts** with increasing wait times: 30, 60, and 120 seconds
+- **5 retry attempts per step** with increasing wait times: 30, 60, 120, 240, and 480 seconds
+- Retry counter resets for each step, so every step gets fresh retry attempts
 - Works across all LLM providers (OpenAI, Anthropic, AWS Bedrock, etc.)
 - Detects common rate limit patterns: "429", "Too Many Requests", "rate limit", "throttle"
 - Displays the actual error message and retry progress

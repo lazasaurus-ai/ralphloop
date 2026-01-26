@@ -13,7 +13,7 @@ run_llm <- function(chat_client, prompt, context = NULL) {
 # Run LLM with retry logic for rate limiting and transient errors
 # ------------------------------------------------------------
 run_llm_with_retry <- function(chat_client, message_text, 
-                                max_retries = 3, 
+                                max_retries = 5, 
                                 initial_wait = 30) {
   attempt <- 1
   

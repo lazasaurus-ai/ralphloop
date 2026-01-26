@@ -28,7 +28,7 @@ inject_completion_promise <- function(prompt, promise) {
 #' Executes the iterative development loop, optionally with plan-aware
 #' step enforcement and tool support. Automatically handles API errors
 #' (including rate limiting) with exponential backoff retry logic
-#' (3 attempts with 30, 60, and 120 second delays).
+#' (5 attempts per step with 30, 60, 120, 240, and 480 second delays).
 #'
 #' @param chat_client An ellmer chat client
 #' @param path Path to the state file (defaults to .ralphloop/ralphloop.local.md)
