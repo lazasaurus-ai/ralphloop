@@ -14,6 +14,23 @@ It is inspired by the *Ralph loop* pattern popularized by Anthropic’s Claude C
 Rather than treating LLM output as ephemeral chat, `ralphloop` persists each iteration to disk, making progress auditable, inspectable, and resumable.
 
 
+## Installation
+
+### Install from GitHub
+
+```r
+install.packages("remotes")
+remotes::install_github("lazasaurus-ai/ralphloop")
+```
+
+### Install from a local checkout
+
+```r
+install.packages("devtools")
+devtools::install("path/to/ralphloop")
+```
+
+
 ## Directory structure
 
 When you run `ralphloop`, it creates a structured work directory:

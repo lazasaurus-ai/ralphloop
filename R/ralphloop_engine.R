@@ -1,3 +1,13 @@
+#' Run an LLM call for ralphloop
+#'
+#' Internal wrapper that assembles the message text and delegates to
+#' [run_llm_with_retry()] for resilient API calls.
+#'
+#' @param chat_client An ellmer chat client
+#' @param prompt Prompt text for the LLM
+#' @param context Optional additional context to prepend
+#' @return A character string response
+#' @keywords internal
 run_llm <- function(chat_client, prompt, context = NULL) {
   message_text <- paste(
     c(context, prompt),
@@ -12,9 +22,20 @@ run_llm <- function(chat_client, prompt, context = NULL) {
 # ------------------------------------------------------------
 # Run LLM with retry logic for rate limiting and transient errors
 # ------------------------------------------------------------
-run_llm_with_retry <- function(chat_client, message_text, 
-                                max_retries = 5, 
-                                initial_wait = 30) {
+#' Run LLM with retry logic
+#'
+#' Retries transient errors (including rate limiting) using exponential
+#' backoff.
+#'
+#' @param chat_client An ellmer chat client
+#' @param message_text Full message to send
+#' @param max_retries Maximum number of attempts
+#' @param initial_wait Initial wait time in seconds for backoff
+#' @return The raw ellmer response object
+#' @keywords internal
+run_llm_with_retry <- function(chat_client, message_text,
+                               max_retries = 5,
+                               initial_wait = 30) {
   attempt <- 1
   
   while (attempt <= max_retries) {
@@ -53,7 +74,7 @@ run_llm_with_retry <- function(chat_client, message_text,
         ))
         
         Sys.sleep(wait_time)
-        attempt <<- attempt + 1
+        attempt <- attempt + 1
         
       } else {
         # Final retry exhausted

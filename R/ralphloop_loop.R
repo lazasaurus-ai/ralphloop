@@ -1,6 +1,16 @@
 # ------------------------------------------------------------
 # Inject completion promise instructions into the prompt
 # ------------------------------------------------------------
+
+#' Inject completion promise instructions
+#'
+#' Appends instructions to the prompt so the model will emit an exact
+#' `<promise>...</promise>` token once the task is truly complete.
+#'
+#' @param prompt Base prompt text
+#' @param promise Promise statement string
+#' @return The modified prompt
+#' @keywords internal
 inject_completion_promise <- function(prompt, promise) {
   if (is.null(promise) || identical(promise, "null")) {
     return(prompt)

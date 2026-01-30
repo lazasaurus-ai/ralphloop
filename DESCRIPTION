@@ -3,16 +3,22 @@ Type: Package
 Title: Persistent Iterative Loop for LLM-Driven Development
 Version: 0.1.0
 Authors@R:
-    person("Lazarus", "Alvarez", role = c("aut", "cre"))
+    person("Lazarus", "Alvarez", role = c("aut", "cre"),
+           email = "lazarusalvarez3@gmail.com")
 Description:
     Provides a persistent, truth-based iterative development loop for
     large language models using the ellmer package. Inspired by the
     Ralph loop pattern popularized by Anthropic's Claude Code.
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
+Depends:
+    R (>= 3.5.0)
 Imports:
     ellmer,
     yaml,
     glue
-RoxygenNote: 7.3.2
+Suggests:
+    devtools,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+RoxygenNote: 7.3.3
